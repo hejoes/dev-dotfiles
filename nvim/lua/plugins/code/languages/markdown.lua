@@ -55,7 +55,6 @@ return {
       vim.cmd([[do FileType]])
     end,
   },
-
   {
     "MeanderingProgrammer/render-markdown.nvim",
     opts = {
@@ -70,22 +69,5 @@ return {
       },
     },
     ft = { "markdown", "norg", "rmd", "org" },
-    config = function(_, opts)
-      require("render-markdown").setup(opts)
-      LazyVim.toggle.map("<leader>mr", {
-        name = "Markdown Render",
-        get = function()
-          return require("render-markdown.state").enabled
-        end,
-        set = function(enabled)
-          local m = require("render-markdown")
-          if enabled then
-            m.enable()
-          else
-            m.disable()
-          end
-        end,
-      })
-    end,
   },
 }
