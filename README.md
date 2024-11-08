@@ -11,9 +11,9 @@
 </p>
 </div>
 
-- This use for SRE/DevOps tasks. Feel free to clone and test out yourse Each
-  folder/application consists of its own README.md file with instructions and
-  some showcase.
+- This repository can be used for setting up workflow for SRE/DevOps tasks. Feel
+  free to clone and test out yourself. Each folder/application consists of its
+  own README.md file with instructions and some showcase.
 
   <img src="https://i.imgur.com/rAyaJEu.png" alt="500" width="700">
 
