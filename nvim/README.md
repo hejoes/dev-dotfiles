@@ -1,3 +1,21 @@
+<h2 align="center">
+    <br>
+  <a href="https://neovim.io">
+    <img src="https://github.com/mstuttgart/nvim/assets/8174740/585d3de3-fb9e-43f8-bc43-068aa073b157" width="50%">
+  </a>
+</h2>
+
+</p>
+
+<p align="center">
+  <a href="#About">About</a> |
+  <a href="#Pre-requisites">Pre-requisites</a> |
+  <a href="#Features">Features</a> |
+  <a href="#Usage">Usage</a> |
+</p>
+
+## About
+
 This nvim setup will hopefully save you some time and nerve cells if you plan on
 migrating over. It uses 💤 [Lazyvim](http://www.lazyvim.org/) as it's base and
 combines some ideas/configuration from
