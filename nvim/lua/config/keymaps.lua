@@ -33,6 +33,12 @@ keymap.set("n", "<M-l>", '<Cmd>lua require("tmux").resize_right()<CR>', { silent
 keymap.set("n", "ss", ":vsplit<Return>", opts)
 keymap.set("n", "sv", ":split<Return>", opts)
 
+-- Resize windows using Option + Arrow Keys
+vim.api.nvim_set_keymap("n", "<M-Up>", ":resize +6<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<M-Down>", ":resize -6<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<M-Left>", ":vertical resize -6<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<M-Right>", ":vertical resize +6<CR>", { noremap = true, silent = true })
+
 vim.keymap.set("n", "<leader>nt", ":Neotree reveal<CR>", { desc = "NeoTree reveal", silent = true, noremap = true })
 
 -- Tmux
