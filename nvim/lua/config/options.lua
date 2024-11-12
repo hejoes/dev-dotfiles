@@ -18,3 +18,6 @@ vim.opt.foldcolumn = "0"
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+--  Compatiblness with avante.ai
+vim.opt.laststatus = 3
