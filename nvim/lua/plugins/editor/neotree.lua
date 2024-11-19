@@ -138,7 +138,7 @@ return {
         },
         window = {
           position = "left",
-          width = 40,
+          width = 30,
           mapping_options = { noremap = true, nowait = true },
           mappings = {
             ["<space>"] = { "toggle_node", nowait = false },
