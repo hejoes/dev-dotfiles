@@ -1,0 +1,55 @@
+plugins:
+  holmesgpt:
+    shortCut: Shift-H
+    description: Ask HolmesGPT
+    scopes:
+      - all
+    command: bash
+    background: false
+    confirm: false
+    args:
+      - -c
+      - |
+        holmes ask  --model="claude-3-5-sonnet-20240620" "why is $NAME of $RESOURCE_NAME in -n $NAMESPACE not working as expected"
+        echo "Press 'q' to exit"
+        while : ; do
+        read -n 1 k <&1
+        if [[ $k = q ]] ; then
+        break
+        fi
+        done
+
+  #get all resources in a namespace using the krew get-all plugin
+  get-all-namespace:
+    shortCut: g
+    confirm: false
+    description: get-all
+    scopes:
+      - namespaces
+    command: sh
+    background: false
+    args:
+      - -c
+      - "kubectl get-all --context $CONTEXT -n $NAME | less -K"
+  get-all-other:
+    shortCut: g
+    confirm: false
+    description: get-all
+    scopes:
+      - all
+    command: sh
+    background: false
+    args:
+      - -c
+      - "kubectl get-all --context $CONTEXT -n $NAMESPACE | less -K"
+  # helm:
+  #   shortCut: Ctrl-H
+  #   description: Helm Charts
+  #   scopes:
+  #     - all
+  #   command: kubectl
+  #   background: false
+  #   args:
+  #     - get
+  #     - helmreleases
+  #     - --all-namespaces
