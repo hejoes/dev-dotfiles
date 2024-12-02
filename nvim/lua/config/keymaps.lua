@@ -35,6 +35,13 @@ keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" })
 keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" })
 keymap.set("n", "<leader>tf", "<cmd>tabnew<CR>", { desc = "Open current tab in new tab" })
 
+-- Telescope
+local telescope = require("telescope.builtin")
+keymap.set("n", "<leader><space>", telescope.buffers, { desc = "Search open buffers" })
+keymap.set("n", "<leader>cG", telescope.live_grep, { desc = "Code grep in entire project" })
+keymap.set("n", "<leader>cg", telescope.current_buffer_fuzzy_find, { desc = "Code grep on currently opened file" })
+keymap.set("n", "<leader>ct", telescope.current_buffer_tags, { desc = "Code tags on currently opened file" })
+
 -- Neotree
 keymap.set("n", "<leader>nt", ":Neotree reveal<CR>", { desc = "NeoTree reveal", silent = true, noremap = true })
 
@@ -77,7 +84,3 @@ vim.api.nvim_set_keymap("n", "K", "20k", { noremap = true, silent = true })
 -- Python support
 vim.g.lazyvim_python_lsp = "pyright"
 --
--- Telescope
-local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>cg", builtin.current_buffer_fuzzy_find, { desc = "Code grep on currently opened file" })
-vim.keymap.set("n", "<leader>ct", builtin.current_buffer_tags, { desc = "Code tags on currently opened file" })
