@@ -44,12 +44,18 @@ This setup covers over 60plugins. I have provided here the list of some:
 - Markdown writing and previewing via
   [render-markdown](https://github.com/MeanderingProgrammer/render-markdown.nvim)
   and [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).
+- Cursor IDE like AI experience with
+  [Avante-nvim](https://github.com/yetone/avante.nvim)
 - Copilot integration
 - Undo management via [undotree](https://github.com/simnalamburt/vim-mundo)
 - Quick navigation to specific word with
   [Leap](https://github.com/ggandor/leap.nvim)
 - Multiple new keymaps and features to base vim using
   [Mini](https://github.com/echasnovski/mini.nvim)
+- Tmux integration with [nvim-tmux](https://github.com/aserowy/tmux.nvim) and
+  [nvim-tmux-navigator](https://github.com/alexghergh/nvim-tmux-navigation)
+- Rainbow for colorizing brackets
+  [Rainbow](https://github.com/HiPhish/rainbow-delimiters.nvim)
 
 ## Pre-requisites
 
