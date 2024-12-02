@@ -30,3 +30,7 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.laststatus = 3
 
 vim.opt.hlsearch = false
+
+-- Highlight matching brackets
+vim.opt.showmatch = true
+vim.opt.matchtime = 3
