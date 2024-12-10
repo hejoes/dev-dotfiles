@@ -100,12 +100,18 @@ This setup covers over 60plugins. I have provided here the list of some:
 ### Code management
 
 - `cg` - CodeGrep, fzf grep in currently opened file
-- `ff` - Fzf find files
+- `ff` - Fzf find files. `c-v` opens up new file in vertical view, next to
+  recent file.
 - `f{g,G}` - grep through files
 - `,` Navigate between buffers (replaces tabs for me)
 - `yy` - Open up Yazi file manager
 - `mp` - Markdown preview
 - `{e,E}` - Open neotree
+
+### External confs
+
+- `hv` - Open up the helm values file using telescope. Allows to fetch all
+  releases based on local Helm repositories.
 
 ## Further useful sources
 
