@@ -89,3 +89,17 @@ vim.cmd([[autocmd BufRead,BufNewFile *.hcl set filetype=hcl]])
 vim.cmd([[autocmd BufRead,BufNewFile .terraformrc,terraform.rc set filetype=hcl]])
 vim.cmd([[autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform]])
 vim.cmd([[autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json]])
+
+require("lspconfig").yamlls.setup({
+  settings = {
+    yaml = {
+      schemas = {
+        kubernetes = "k8s-*.yaml",
+        ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
+        ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+        ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/**/*.{yml,yaml}",
+        ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
+      },
+    },
+  },
+})

@@ -1,11 +1,7 @@
 [plugin]
-prepend_previewers = [
-  { name = "*.md", run = "glow" },
-]
+prepend_previewers = [{ name = "*.md", run = "glow" }]
 [preview]
-tab_size = 2
-max_width = 1000
+max_width = 1200
 max_height = 1000
 [manager]
-sort_by = "modified"
 sort_reverse = true

@@ -74,6 +74,8 @@ This setup covers over 60plugins. I have provided here the list of some:
   1. [Shellcheck](https://github.com/koalaman/shellcheck) in your $PATH- for
      automatic bash linting
   1. [lazygit](https://github.com/jesseduffield/lazygit)
+  1. [Github CLI](https://github.com/cli/cli#installation). Used for some Github
+     git plugin
 
 ## Usage
 

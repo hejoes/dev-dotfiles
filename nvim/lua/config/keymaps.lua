@@ -12,6 +12,11 @@ keymap.set("n", "<C-l>", "<Cmd>NvimTmuxNavigateRight<CR>", { silent = true })
 keymap.set("n", "<C-\\>", "<Cmd>NvimTmuxNavigateLastActive<CR>", { silent = true })
 keymap.set("n", "<C-Space>", "<Cmd>NvimTmuxNavigateNavigateNext<CR>", { silent = true })
 
+keymap.set("n", "ml", "<C-w>h", { desc = "Go to left window", silent = true })
+keymap.set("n", "mr", "<C-w>l", { desc = "Go to right window", silent = true })
+keymap.set("n", "mj", "<C-w>j", { desc = "Go to lower window", silent = true })
+keymap.set("n", "mk", "<C-w>j", { desc = "Go to upper window", silent = true })
+
 keymap.del({ "n", "i", "v" }, "<A-j>")
 keymap.del({ "n", "i", "v" }, "<A-k>")
 keymap.del("n", "<C-Left>")
@@ -37,10 +42,10 @@ keymap.set("n", "<leader>tf", "<cmd>tabnew<CR>", { desc = "Open current tab in n
 
 -- Telescope
 local telescope = require("telescope.builtin")
-keymap.set("n", "<leader><space>", telescope.buffers, { desc = "Search open buffers" })
 keymap.set("n", "<leader>cG", telescope.live_grep, { desc = "Code grep in entire project" })
 keymap.set("n", "<leader>cg", telescope.current_buffer_fuzzy_find, { desc = "Code grep on currently opened file" })
 keymap.set("n", "<leader>ct", telescope.current_buffer_tags, { desc = "Code tags on currently opened file" })
+-- keymap.set("n", "<leader><leader>", "<cmd>Telescope buffers<CR>", { desc = "Switch Buffer" })
 
 -- Neotree
 keymap.set("n", "<leader>nt", ":Neotree reveal<CR>", { desc = "NeoTree reveal", silent = true, noremap = true })
@@ -61,7 +66,19 @@ vim.api.nvim_set_keymap("n", "<leader>th", ":silent !tmux split-window -h<CR>", 
 -- Open a new vertical split in Tmux
 vim.api.nvim_set_keymap("n", "<leader>tv", ":silent !tmux split-window -v<CR>", { noremap = true, silent = true })
 
-vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>")
+keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>")
+
+-- Keymaps for git
+keymap.set("n", "<leader>gdf", "<cmd>DiffviewFileHistory --follow %<cr>", { desc = "File commit history" })
+keymap.set("n", "<leader>gdr", "<cmd>DiffviewFileHistory --follow %<cr>", { desc = "Repo commit history" })
+keymap.set(
+  "v",
+  "<leader>gdv",
+  "<Esc><Cmd>'<,'>DiffviewFileHistory --follow<CR>",
+  { desc = "File history from selection" }
+)
+keymap.set("n", "<leader>gdo", "<cmd>DiffviewOpen<cr>", { desc = "Diff compare HEAD & MergeConflicts" })
+keymap.set("n", "<leader>gda", "<cmd>AdvancedGitSearch <cr>", { desc = "AdvancedGitSearch" })
 
 --  Remmove other mapping for K to allow 20k movement below
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -83,4 +100,35 @@ vim.api.nvim_set_keymap("n", "K", "20k", { noremap = true, silent = true })
 
 -- Python support
 vim.g.lazyvim_python_lsp = "pyright"
---
+
+-- Remove default LazyVim keymaps
+local function del_keymap()
+  local keys = {
+    "<leader>cf",
+    "<leader>cF",
+    "<leader>cc",
+    "<leader>cl",
+    "<leader>cm",
+    "<leader>ft",
+    "<leader>fT",
+    "<leader>K",
+    "<leader>,",
+    "<leader>S",
+    "<leader>fb",
+    "<leader>b",
+    "<leader>/",
+    "<leader>gY",
+    "<leader>ge",
+    "<leader>gf",
+  }
+  for _, key in ipairs(keys) do
+    pcall(vim.keymap.del, "n", key)
+  end
+end
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "LazyVimKeymaps",
+  callback = function()
+    vim.schedule(del_keymap)
+  end,
+})
