@@ -1,22 +1,12 @@
--- return {
---   {
---     "CopilotC-Nvim/CopilotChat.nvim",
---     opts = {
---       debug = true, -- Enable debugging
---       model = "claude-3.5-sonnet",
---     },
---   },
--- }
---
---
--- {
 return {
   "yetone/avante.nvim",
   event = "VeryLazy",
   lazy = false,
   version = false, -- set this if you want to always pull the latest change
   opts = {
-    -- add any opts here
+    claude = {
+      model = "claude-3-7-sonnet-20250219",
+    },
   },
   build = "make",
   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
