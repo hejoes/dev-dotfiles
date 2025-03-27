@@ -55,19 +55,34 @@ return {
       vim.cmd([[do FileType]])
     end,
   },
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    opts = {
-      code = {
-        sign = false,
-        width = "block",
-        right_pad = 1,
-      },
-      heading = {
-        sign = false,
-        icons = {},
-      },
-    },
-    ft = { "markdown", "norg", "rmd", "org" },
-  },
+  -- TEMPORARILY DISABLED: Testing if this causes Avante duplication
+  -- {
+  --   "MeanderingProgrammer/render-markdown.nvim",
+  --   opts = {
+  --     file_types = { "markdown", "Avante" },
+  --     code = {
+  --       sign = false,
+  --       width = "block",
+  --       right_pad = 1,
+  --     },
+  --     heading = {
+  --       sign = false,
+  --       icons = {},
+  --     },
+  --     -- Add dash configuration to prevent the original error
+  --     dash = {
+  --       icon = "─",
+  --       width = "full",
+  --     },
+  --     -- Ensure proper rendering for Avante
+  --     render_modes = { "n", "c", "t" },
+  --     anti_conceal = {
+  --       enabled = true,
+  --     },
+  --   },
+  --   ft = { "markdown", "norg", "rmd", "org", "Avante" },
+  --   config = function(_, opts)
+  --     require("render-markdown").setup(opts)
+  --   end,
+  -- },
 }

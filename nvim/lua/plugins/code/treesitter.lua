@@ -6,6 +6,7 @@ return {
         "bash",
         "dockerfile",
         "gitignore",
+        "hcl", -- For Terraform and HCL files
         "json",
         "json5",
         "jsonc",
@@ -16,6 +17,7 @@ return {
         "python",
         "regex",
         "sql",
+        "terraform", -- Explicit terraform parser
         "vim",
         "vimdoc",
         "yaml",

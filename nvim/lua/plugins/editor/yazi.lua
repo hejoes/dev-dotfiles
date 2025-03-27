@@ -5,26 +5,16 @@ return {
     keys = {
       {
         "<leader>yy",
-        function()
-          -- Open Yazi in the main window and update Neovim's cwd
-          vim.cmd("Yazi")
-        end,
-        desc = "Open Yazi in main window",
+        "<cmd>Yazi<cr>",
+        desc = "Open yazi at the current file",
       },
     },
     opts = {
-      open_for_directories = true,
+      -- Minimal configuration to avoid deprecated options
+      open_for_directories = false,
       keymaps = {
-        open_file_in_horizontal_split = "<c-h>",
-        open_file_in_vertical_split = "<c-v>",
-        open_file_in_new_tab = "<c-t>",
+        show_help = "<f1>",
       },
-      -- Automatically set Neovim's `cwd` when navigating in Yazi
-      on_dir_change = function(new_dir)
-        vim.cmd("lcd " .. new_dir)
-      end,
-      -- Open Yazi without popup
-      open_mode = "replace", -- 'replace' mode to open in the main window
     },
   },
 }

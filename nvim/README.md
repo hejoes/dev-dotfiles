@@ -11,7 +11,7 @@
   <a href="#About">About</a> |
   <a href="#Pre-requisites">Pre-requisites</a> |
   <a href="#Features">Features</a> |
-  <a href="#Usage">Usage</a> |
+  <a href="#Usage">Usage</a>
 </p>
 
 ## About
@@ -23,7 +23,7 @@ combines some ideas/configuration from
 
 ## Features
 
-This setup covers over 60plugins. I have provided here the list of some:
+This setup covers over 60 plugins. I have provided here the list of some:
 
 - Plugin package manager with [Lazy.nvim](https://github.com/folke/lazy.nvim).
 - Code, snippet, word auto-completion via
@@ -66,12 +66,11 @@ This setup covers over 60plugins. I have provided here the list of some:
   1. [fzf](https://github.com/junegunn/fzf)
   1. [zoxide](https://github.com/ajeetdsouza/zoxide)
   1. [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli#install-terraform)
-  1. [Yazi](https://github.com/sxyazi/yazi)- for quick and easy file switching
-     and navigation. Recommended terminals that are more compatible with yazi:
-     wezterm or iterm2.
+  1. [Yazi](https://github.com/sxyazi/yazi) - for quick and easy file switching
+     between iteration
   1. [Nerd Font](https://www.nerdfonts.com/) - visually more pleasing & allows
      icons: `brew install font-meslo-lg-nerd-font`
-  1. [Shellcheck](https://github.com/koalaman/shellcheck) in your $PATH- for
+  1. [Shellcheck](https://github.com/koalaman/shellcheck) in your $PATH - for
      automatic bash linting
   1. [lazygit](https://github.com/jesseduffield/lazygit)
   1. [Github CLI](https://github.com/cli/cli#installation). Used for some Github
@@ -79,7 +78,7 @@ This setup covers over 60plugins. I have provided here the list of some:
 
 ## Usage
 
-- Here are some useful shortcuts that I often use. I have listen only some
+- Here are some useful shortcuts that I often use. I have listed only some
   portion in this documentation. All keymaps can be looked up with the leader
   `Space` key in combination with
   [which-key](https://github.com/folke/which-key.nvim) plugin

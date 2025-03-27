@@ -40,18 +40,42 @@ keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" })
 keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" })
 keymap.set("n", "<leader>tf", "<cmd>tabnew<CR>", { desc = "Open current tab in new tab" })
 
--- Telescope
-local telescope = require("telescope.builtin")
-keymap.set("n", "<leader>cG", telescope.live_grep, { desc = "Code grep in entire project" })
-keymap.set("n", "<leader>cg", telescope.current_buffer_fuzzy_find, { desc = "Code grep on currently opened file" })
-keymap.set("n", "<leader>ct", telescope.current_buffer_tags, { desc = "Code tags on currently opened file" })
--- keymap.set("n", "<leader><leader>", "<cmd>Telescope buffers<CR>", { desc = "Switch Buffer" })
+-- Telescope - Fixed to ensure project-wide search
+keymap.set("n", "<leader>cG", function()
+  require("telescope.builtin").live_grep({
+    cwd = require("lazyvim.util").root(),
+    prompt_title = "Live Grep (Project Root)",
+  })
+end, { desc = "Code grep in entire project" })
+
+keymap.set("n", "<leader>cg", function()
+  require("telescope.builtin").current_buffer_fuzzy_find()
+end, { desc = "Code grep on currently opened file" })
+
+keymap.set("n", "<leader>ct", function()
+  require("telescope.builtin").current_buffer_tags()
+end, { desc = "Code tags on currently opened file" })
+
+-- Alternative project-wide search with ripgrep
+keymap.set("n", "<leader>cR", function()
+  require("telescope.builtin").live_grep({
+    cwd = vim.fn.getcwd(),
+    prompt_title = "Live Grep (Current Working Directory)",
+  })
+end, { desc = "Code grep in current working directory" })
 
 -- Neotree
 keymap.set("n", "<leader>nt", ":Neotree reveal<CR>", { desc = "NeoTree reveal", silent = true, noremap = true })
 
--- Dont remember deletions with leader d
-keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+-- Make ALL d and c commands never copy (use black hole register for everything)
+vim.keymap.set("n", "d", '"_d', { desc = "Delete without copying" })
+vim.keymap.set("n", "c", '"_c', { desc = "Change without copying" })
+vim.keymap.set("v", "d", '"_d', { desc = "Delete without copying" })
+vim.keymap.set("v", "c", '"_c', { desc = "Change without copying" })
+
+-- Use <leader>d and <leader>c when you DO want to copy (cut)
+keymap.set({ "n", "v" }, "<leader>d", [["+d]], { desc = "Delete and copy to clipboard" })
+keymap.set({ "n", "v" }, "<leader>c", [["+c]], { desc = "Change and copy to clipboard" })
 
 -- Resize windows using Option + Arrow Keys
 vim.api.nvim_set_keymap("n", "<M-Up>", ":resize +6<CR>", { noremap = true, silent = true })
