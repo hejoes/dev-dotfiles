@@ -4,8 +4,20 @@ return {
   lazy = false,
   version = false, -- set this if you want to always pull the latest change
   opts = {
+    -- provider = "copilot",
     claude = {
+      -- model = "o3-mini-2025-01-31",
       model = "claude-3-7-sonnet-20250219",
+      max_tokens = 13000,
+      timeout = 60000, --1m
+      disable_tools = true,
+      -- disabled_tools = { "python" },
+    },
+    mappings = {
+      windows = {
+        wrap = true,
+        width = 60,
+      },
     },
   },
   build = "make",
