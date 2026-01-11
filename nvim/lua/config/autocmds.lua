@@ -25,11 +25,6 @@ M.update_cwd_on_open = function()
     end
 end
 
--- TEMPORARILY DISABLED - was causing issues with file opening
--- vim.api.nvim_create_autocmd("BufEnter", {
---     callback = M.update_cwd_on_open,
--- })
-
 -- Handle paste events in terminal to prevent freezes
 vim.api.nvim_create_autocmd("TermOpen", {
   group = vim.api.nvim_create_augroup("TerminalPasteFix", { clear = true }),

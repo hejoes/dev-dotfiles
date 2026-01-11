@@ -8,8 +8,8 @@ return {
       require("incline").setup({
         highlight = {
           groups = {
-            InclineNormal = { guibg = "#303270", guifg = "#a9b1d6" },
-            InclineNormalNC = { guibg = "none", guifg = "#a9b1d6" },
+            InclineNormal = { guibg = "#3c4048", guifg = "#ffffff" },
+            InclineNormalNC = { guibg = "none", guifg = "#7b8496" },
           },
         },
         window = { margin = { vertical = 0, horizontal = 1 } },

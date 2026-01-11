@@ -6,7 +6,7 @@ code in this repository.
 ## Overview
 
 This is a Neovim configuration built on top of
-[LazyVim](http://www.lazyvim.org/) that combines ideas from kickstarter. It's
+[LazyVim](http://www.lazyvim.org/) that combines ideas from Kickstarter. It's
 designed for infrastructure-as-code development (Terraform, Kubernetes, Helm,
 Ansible) with AI-powered code assistance through GitHub Copilot.
 
@@ -28,7 +28,7 @@ Plugins are organized into four main categories under `lua/plugins/`:
 
 - **ui/**: Visual elements (status lines, notifications, colorscheme)
 
-- **git/**: Git integration (gitsigns, lazygit, flog, git-blame)
+- **git/**: Git integration (gitsigns, Lazygit, flog, git-blame)
 
 ### Configuration Files
 
@@ -139,7 +139,7 @@ The implementation uses `helm repo list`, `helm search repo --versions`, and
 
 ### Git
 
-- `<leader>gg`: Open lazygit (borderless)
+- `<leader>gg`: Open Lazygit (borderless)
 - `<leader>gdf`: File commit history (Diffview)
 - `<leader>gdr`: Repo commit history
 - `<leader>gdo`: Diff compare HEAD & merge conflicts
@@ -181,7 +181,7 @@ Ensure these are installed in `$PATH`:
 - Yazi
 - Nerd Font (e.g., `font-meslo-lg-nerd-font`)
 - shellcheck (for bash linting)
-- lazygit
+- Lazygit
 - gh (GitHub CLI)
 
 ## LazyVim Extras
@@ -225,3 +225,7 @@ nvim
 
 **Prevention:** Always properly exit nvim with `:qa` or `:q` instead of
 force-closing terminal windows.
+
+## Usage
+
+- Do not create any additional `.md` files when outputting the results!

@@ -18,8 +18,8 @@
 
 This nvim setup will hopefully save you some time and nerve cells if you plan on
 migrating over. It uses 💤 [Lazyvim](http://www.lazyvim.org/) as it's base and
-combines some ideas/configuration from
-[kickstarter](https://github.com/nvim-lua/kickstart.nvim).
+combines ideas/configuration from
+[Kickstarter](https://github.com/nvim-lua/kickstart.nvim).
 
 ## Features
 
@@ -34,7 +34,7 @@ This setup covers over 60 plugins. I have provided here the list of some:
   - Supported languages: `bash`, `yaml`, `python`, `docker`, `json`, `lua`,
     `helm`, `toml`, `markdown`, `ansible`, `terraform`
 - Git integration via [gitsigns](https://github.com/lewis6991/gitsigns.nvim) and
-  [lazygit](https://github.com/jesseduffield/lazygit)
+  [Lazygit](https://github.com/jesseduffield/Lazygit)
 - Faster matching pair insertion and jump via
   [nvim-autopairs](https://github.com/windwp/nvim-autopairs).
 - File tree explorer via
@@ -68,7 +68,7 @@ This setup covers over 60 plugins. I have provided here the list of some:
      icons: `brew install font-meslo-lg-nerd-font`
   1. [Shellcheck](https://github.com/koalaman/shellcheck) in your $PATH - for
      automatic bash linting
-  1. [lazygit](https://github.com/jesseduffield/lazygit)
+  1. [Lazygit](https://github.com/jesseduffield/Lazygit)
   1. [Github CLI](https://github.com/cli/cli#installation). Used for some Github
      git plugin
 

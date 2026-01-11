@@ -8,7 +8,7 @@ local Util = require("lazyvim.util")
 keymap.set("n", "ml", "<C-w>h", { desc = "Go to left window", silent = true })
 keymap.set("n", "mr", "<C-w>l", { desc = "Go to right window", silent = true })
 keymap.set("n", "mj", "<C-w>j", { desc = "Go to lower window", silent = true })
-keymap.set("n", "mk", "<C-w>j", { desc = "Go to upper window", silent = true })
+keymap.set("n", "mk", "<C-w>k", { desc = "Go to upper window", silent = true })
 
 keymap.del({ "n", "i", "v" }, "<A-j>")
 keymap.del({ "n", "i", "v" }, "<A-k>")
@@ -75,7 +75,7 @@ keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>")
 
 -- Keymaps for git
 keymap.set("n", "<leader>gdf", "<cmd>DiffviewFileHistory --follow %<cr>", { desc = "File commit history" })
-keymap.set("n", "<leader>gdr", "<cmd>DiffviewFileHistory --follow %<cr>", { desc = "Repo commit history" })
+keymap.set("n", "<leader>gdr", "<cmd>DiffviewFileHistory<cr>", { desc = "Repo commit history" })
 keymap.set(
   "v",
   "<leader>gdv",
