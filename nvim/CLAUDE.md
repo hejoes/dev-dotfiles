@@ -1,10 +1,14 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with
+code in this repository.
 
 ## Overview
 
-This is a Neovim configuration built on top of [LazyVim](http://www.lazyvim.org/) that combines ideas from kickstarter. It's designed for infrastructure-as-code development (Terraform, Kubernetes, Helm, Ansible) with AI-powered code assistance through GitHub Copilot.
+This is a Neovim configuration built on top of
+[LazyVim](http://www.lazyvim.org/) that combines ideas from kickstarter. It's
+designed for infrastructure-as-code development (Terraform, Kubernetes, Helm,
+Ansible) with AI-powered code assistance through GitHub Copilot.
 
 ## Architecture
 
@@ -29,41 +33,58 @@ Plugins are organized into four main categories under `lua/plugins/`:
 ### Configuration Files
 
 - `init.lua`: Bootstraps lazy.nvim by requiring `config.lazy`
-- `lua/config/lazy.lua`: Sets up plugin spec with LazyVim extras and custom plugin imports
+- `lua/config/lazy.lua`: Sets up plugin spec with LazyVim extras and custom
+  plugin imports
 - `lua/config/keymaps.lua`: Custom keybindings (see Usage section)
-- `lua/config/options.lua`: Editor options (wrapping, folding, paste performance)
-- `lua/config/autocmds.lua`: Auto-commands for CWD updates and performance optimizations
+- `lua/config/options.lua`: Editor options (wrapping, folding, paste
+  performance)
+- `lua/config/autocmds.lua`: Auto-commands for CWD updates and performance
+  optimizations
 
 ### Key Technical Details
 
-**Plugin Management**: Uses [lazy.nvim](https://github.com/folke/lazy.nvim) with automatic updates enabled (`checker = { enabled = true }`).
+**Plugin Management**: Uses [lazy.nvim](https://github.com/folke/lazy.nvim) with
+automatic updates enabled (`checker = { enabled = true }`).
 
-**Lazy Loading**: Custom plugins are NOT lazy-loaded by default (`defaults.lazy = false`). LazyVim plugins use their own lazy-loading strategies.
+**Lazy Loading**: Custom plugins are NOT lazy-loaded by default
+(`defaults.lazy = false`). LazyVim plugins use their own lazy-loading
+strategies.
 
-**LSP Configuration**: YAML LSP is configured in `lua/config/lazy.lua` with schemas for Kubernetes, GitHub workflows, Ansible, and Helm charts.
+**LSP Configuration**: YAML LSP is configured in `lua/config/lazy.lua` with
+schemas for Kubernetes, GitHub workflows, Ansible, and Helm charts.
 
 **AI Integration & Automation**:
-- Copilot integrates with blink.cmp and hides suggestions when the completion menu is open
-- Tab key accepts Copilot suggestions, works across all file types including markdown
-- Copilot suggestions appear inline and integrate seamlessly with the completion system
+
+- Copilot integrates with blink.cmp and hides suggestions when the completion
+  menu is open
+- Tab key accepts Copilot suggestions, works across all file types including
+  markdown
+- Copilot suggestions appear inline and integrate seamlessly with the completion
+  system
 - Auto-save enabled on BufLeave, FocusLost, InsertLeave, and TextChanged events
 
 **Performance Optimizations**:
-- Paste operations are optimized with timeout settings and autocmds in `autocmds.lua`
+
+- Paste operations are optimized with timeout settings and autocmds in
+  `autocmds.lua`
 - Treesitter folding is enabled with `foldlevel=1`
 
 **Completion System**: blink.cmp with sources ordered by priority:
+
 1. Copilot (score_offset: 100)
 2. LSP, path, snippets, buffer
 
-Command-line completion is enabled via blink.cmp for enhanced `:` command experience.
+Command-line completion is enabled via blink.cmp for enhanced `:` command
+experience.
 
 **Disabled Plugins:**
+
 - `tmux.nvim` - Removed entirely (use external tmux instead)
 
 ## Common Development Commands
 
 ### Plugin Management
+
 ```vim
 :Lazy                  " Open Lazy plugin manager
 :Lazy sync             " Update plugins
@@ -71,6 +92,7 @@ Command-line completion is enabled via blink.cmp for enhanced `:` command experi
 ```
 
 ### LSP & Treesitter
+
 ```vim
 :Mason                 " Open Mason LSP/formatter installer
 :TSUpdate              " Update Treesitter parsers
@@ -78,23 +100,28 @@ Command-line completion is enabled via blink.cmp for enhanced `:` command experi
 ```
 
 ### Helm Values Workflow
+
 Use `<leader>hv` to interactively browse Helm chart values:
+
 1. Select repository from local helm repos
 2. Choose chart (shows version count)
 3. Select specific version
 4. Opens values.yaml in vertical split at `/tmp/helm_values_*.yaml`
 
-The implementation uses `helm repo list`, `helm search repo --versions`, and `helm show values`.
+The implementation uses `helm repo list`, `helm search repo --versions`, and
+`helm show values`.
 
 ## Key Bindings Reference
 
 ### Window Navigation
+
 - `sh`: Split window horizontally (stacked)
 - `sv`: Split window vertically (side-by-side)
 - `ml/mr/mj/mk`: Navigate between Neovim windows (left/right/down/up)
 - `M-{Up,Down,Left,Right}`: Resize windows with arrow keys
 
 ### File Management
+
 - `ff`: Fuzzy find files
 - `fg`/`fG`: Grep through files
 - `cg`: Grep in current buffer
@@ -104,12 +131,14 @@ The implementation uses `helm repo list`, `helm search repo --versions`, and `he
 - `e`/`E`: Open NeoTree
 
 ### Code Navigation
+
 - `H`: LSP hover (remapped from `K`)
 - `J`: Jump down 20 lines
 - `K`: Jump up 20 lines
 - `ct`: Show tags in current buffer
 
 ### Git
+
 - `<leader>gg`: Open lazygit (borderless)
 - `<leader>gdf`: File commit history (Diffview)
 - `<leader>gdr`: Repo commit history
@@ -117,26 +146,35 @@ The implementation uses `helm repo list`, `helm search repo --versions`, and `he
 - `<leader>gda`: Advanced Git search
 
 ### Markdown
+
 - `<leader>mp`: Toggle Markdown preview
 
 ### Clipboard Behavior
+
 By default, `d` and `c` do NOT copy (use black hole register):
+
 - `d`/`c`: Delete/change without copying
 - `<leader>d`/`<leader>c`: Delete/change and copy to clipboard
 
 ## Language Support
 
-Configured for: Bash, YAML, Python, Docker, JSON, Lua, Helm, TOML, Markdown, Ansible, Terraform
+Configured for: Bash, YAML, Python, Docker, JSON, Lua, Helm, TOML, Markdown,
+Ansible, Terraform
 
-Treesitter parsers auto-install on first use. HCL parser is used for Terraform files (`terraform` and `terraform-vars` filetypes).
+Treesitter parsers auto-install on first use. HCL parser is used for Terraform
+files (`terraform` and `terraform-vars` filetypes).
 
 ## Working Directory Behavior
 
-The `BufEnter` autocmd in `autocmds.lua` automatically updates the local working directory (`lcd`) to match the directory of the file being edited. This ensures file operations (like telescope searches) work relative to the current file's location when switching between files via Yazi or terminal.
+The `BufEnter` autocmd in `autocmds.lua` automatically updates the local working
+directory (`lcd`) to match the directory of the file being edited. This ensures
+file operations (like telescope searches) work relative to the current file's
+location when switching between files via Yazi or terminal.
 
 ## Supported Languages & Tools
 
 Ensure these are installed in `$PATH`:
+
 - npm
 - fzf, zoxide
 - Terraform
@@ -149,8 +187,10 @@ Ensure these are installed in `$PATH`:
 ## LazyVim Extras
 
 The following LazyVim extras are imported (see `lua/config/lazy.lua`):
+
 - `editor.aerial`: Code outline
-- `lang.docker`, `lang.json`, `lang.terraform`, `lang.python`, `lang.yaml`, `lang.git`, `lang.helm`, `lang.toml`, `lang.ansible`
+- `lang.docker`, `lang.json`, `lang.markdown`, `lang.terraform`, `lang.python`,
+  `lang.yaml`, `lang.git`, `lang.helm`, `lang.toml`, `lang.ansible`
 - `linting.eslint`
 - `vscode`: VSCode integration support
 
@@ -158,11 +198,14 @@ The following LazyVim extras are imported (see `lua/config/lazy.lua`):
 
 ### Neovim Crashes or Exits When Opening Files
 
-**Symptom:** Neovim exits to terminal when opening files via Telescope, NeoTree, or rapidly switching buffers. Logs show "TUI already stopped (race?)" errors.
+**Symptom:** Neovim exits to terminal when opening files via Telescope, NeoTree,
+or rapidly switching buffers. Logs show "TUI already stopped (race?)" errors.
 
-**Root Cause:** Zombie nvim processes running in the background from previous sessions interfere with new nvim instances, causing TUI race conditions.
+**Root Cause:** Zombie nvim processes running in the background from previous
+sessions interfere with new nvim instances, causing TUI race conditions.
 
 **Solution:**
+
 ```bash
 # Check for zombie nvim processes
 ps aux | grep nvim | grep -v grep
@@ -180,4 +223,5 @@ rm -rf /tmp/nvim.* ~/.local/state/nvim/shada/*
 nvim
 ```
 
-**Prevention:** Always properly exit nvim with `:qa` or `:q` instead of force-closing terminal windows.
+**Prevention:** Always properly exit nvim with `:qa` or `:q` instead of
+force-closing terminal windows.

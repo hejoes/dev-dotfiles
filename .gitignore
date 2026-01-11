@@ -1,0 +1,5 @@
+# Ignore k9s configuration (contains cluster-specific data)
+k9s/
+
+# Ignore GitHub Copilot tokens and configuration (contains OAuth tokens)
+github-copilot/
