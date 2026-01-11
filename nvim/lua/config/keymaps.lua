@@ -5,13 +5,6 @@ local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 local Util = require("lazyvim.util")
 
-keymap.set("n", "<C-h>", "<Cmd>NvimTmuxNavigateLeft<CR>", { silent = true })
-keymap.set("n", "<C-j>", "<Cmd>NvimTmuxNavigateDown<CR>", { silent = true })
-keymap.set("n", "<C-k>", "<Cmd>NvimTmuxNavigateUp<CR>", { silent = true })
-keymap.set("n", "<C-l>", "<Cmd>NvimTmuxNavigateRight<CR>", { silent = true })
-keymap.set("n", "<C-\\>", "<Cmd>NvimTmuxNavigateLastActive<CR>", { silent = true })
-keymap.set("n", "<C-Space>", "<Cmd>NvimTmuxNavigateNavigateNext<CR>", { silent = true })
-
 keymap.set("n", "ml", "<C-w>h", { desc = "Go to left window", silent = true })
 keymap.set("n", "mr", "<C-w>l", { desc = "Go to right window", silent = true })
 keymap.set("n", "mj", "<C-w>j", { desc = "Go to lower window", silent = true })
@@ -24,14 +17,9 @@ keymap.del("n", "<C-Down>")
 keymap.del("n", "<C-Up>")
 keymap.del("n", "<C-Right>")
 
-keymap.set("n", "<M-h>", '<Cmd>lua require("tmux").resize_left()<CR>', { silent = true })
-keymap.set("n", "<M-j>", '<Cmd>lua require("tmux").resize_bottom()<CR>', { silent = true })
-keymap.set("n", "<M-k>", '<Cmd>lua require("tmux").resize_top()<CR>', { silent = true })
-keymap.set("n", "<M-l>", '<Cmd>lua require("tmux").resize_right()<CR>', { silent = true })
-
--- Split windows
-keymap.set("n", "ss", ":vsplit<Return>", opts)
-keymap.set("n", "sv", ":split<Return>", opts)
+-- Split windows (sh = horizontal split, sv = vertical split)
+keymap.set("n", "sh", ":split<Return>", opts)
+keymap.set("n", "sv", ":vsplit<Return>", opts)
 
 --  Tab management
 keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" })
@@ -82,13 +70,6 @@ vim.api.nvim_set_keymap("n", "<M-Up>", ":resize +6<CR>", { noremap = true, silen
 vim.api.nvim_set_keymap("n", "<M-Down>", ":resize -6<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<M-Left>", ":vertical resize -6<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<M-Right>", ":vertical resize +6<CR>", { noremap = true, silent = true })
-
--- Tmux
--- Open a new horizontal split in Tmux
-vim.api.nvim_set_keymap("n", "<leader>th", ":silent !tmux split-window -h<CR>", { noremap = true, silent = true })
-
--- Open a new vertical split in Tmux
-vim.api.nvim_set_keymap("n", "<leader>tv", ":silent !tmux split-window -v<CR>", { noremap = true, silent = true })
 
 keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>")
 

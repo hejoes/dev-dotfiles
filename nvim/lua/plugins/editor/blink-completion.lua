@@ -3,9 +3,7 @@ return {
     {
         'saghen/blink.cmp',
         -- optional: provides snippets for the snippet source
-        dependencies = { 
-            'Kaiser-Yang/blink-cmp-avante', -- For Avante @ mentions autocomplete
-        },
+        dependencies = {},
       
         -- use a release tag to download pre-built binaries
         version = '1.*',
@@ -54,14 +52,8 @@ return {
                             -- Default list of enabled providers defined so that you can extend it
          -- elsewhere in your config, without redefining it, due to `opts_extend`
          sources = {
-           default = { 'avante', 'lsp', 'path', 'snippets', 'buffer', 'copilot' },
+           default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot' },
            providers = {
-             avante = {
-               name = "Avante",
-               module = "blink-cmp-avante",
-               score_offset = 90,
-               async = true,
-             },
              copilot = {
                name = "copilot",
                module = "blink-cmp-copilot",
@@ -103,5 +95,11 @@ return {
           fuzzy = { implementation = "prefer_rust_with_warning" }
         },
         opts_extend = { "sources.default" }
-      }
+      },
+
+      -- Add blink-cmp-copilot integration for Copilot completions in blink.cmp
+      {
+        "giuxtaposition/blink-cmp-copilot",
+        dependencies = { "zbirenbaum/copilot.lua" },
+      },
 }

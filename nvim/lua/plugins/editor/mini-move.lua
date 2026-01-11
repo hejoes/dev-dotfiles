@@ -1,6 +1,6 @@
 -- Allows to move selected code left,right and so on (indented way)
 return {
-  "echasnovski/mini.move",
+  "nvim-mini/mini.move",
   event = "VeryLazy",
   opts = {
     mappings = {

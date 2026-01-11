@@ -44,16 +44,12 @@ This setup covers over 60 plugins. I have provided here the list of some:
 - Markdown writing and previewing via
   [render-markdown](https://github.com/MeanderingProgrammer/render-markdown.nvim)
   and [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).
-- Cursor IDE like AI experience with
-  [Avante-nvim](https://github.com/yetone/avante.nvim)
-- Copilot integration
+- Copilot integration for AI-powered code completion
 - Undo management via [undotree](https://github.com/simnalamburt/vim-mundo)
 - Quick navigation to specific word with
   [Leap](https://github.com/ggandor/leap.nvim)
 - Multiple new keymaps and features to base vim using
   [Mini](https://github.com/echasnovski/mini.nvim)
-- Tmux integration with [nvim-tmux](https://github.com/aserowy/tmux.nvim) and
-  [nvim-tmux-navigator](https://github.com/alexghergh/nvim-tmux-navigation)
 - Rainbow for colorizing brackets
   [Rainbow](https://github.com/HiPhish/rainbow-delimiters.nvim)
 
@@ -87,16 +83,10 @@ This setup covers over 60 plugins. I have provided here the list of some:
 
 #### Window-management
 
-1. ss - Split window horizontally (regular ss)
-1. sv - Split window vertically (regular sv)
-1. C-{h,j,k,l} - Move to window in direction
-1. `M-{h,j,k,l}` - Resize window in direction
-
-#### Tmux
-
-1. `tv` - Open a new tmux vertical split `th` same for horizontal
-1. `<tmux leader>+M` - hide/maximise window (useful for opening/closing terminal
-   in neovim for example)
+1. sh - Split window horizontally (stacked)
+1. sv - Split window vertically (side-by-side)
+1. ml/mr/mj/mk - Navigate between windows (left/right/down/up)
+1. `M-{Up,Down,Left,Right}` - Resize window with arrow keys
 
 ### Code management
 
@@ -117,4 +107,3 @@ This setup covers over 60 plugins. I have provided here the list of some:
 ## Further useful sources
 
 - [Using Neovim for Three years](https://jdhao.github.io/2021/12/31/using_nvim_after_three_years/)
-- [Typecraft - tmux will skyrocket your productivity](https://typecraft.com/blog/tmux-will-skyrocket-your-productivity)

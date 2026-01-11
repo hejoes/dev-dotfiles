@@ -26,7 +26,6 @@ vim.opt.foldcolumn = "0"
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
---  Compatiblness with avante.ai
 vim.opt.laststatus = 3
 
 vim.opt.hlsearch = false
@@ -34,3 +33,15 @@ vim.opt.hlsearch = false
 -- Highlight matching brackets
 vim.opt.showmatch = true
 vim.opt.matchtime = 3
+
+-- Paste performance optimization
+-- These settings help prevent freezing when pasting large content, especially in WezTerm
+vim.opt.timeout = true
+vim.opt.timeoutlen = 500 -- Time in ms to wait for a mapped sequence to complete
+vim.opt.ttimeoutlen = 10 -- Time in ms to wait for a key code sequence to complete
+
+-- Improve paste performance by reducing update frequency during paste
+vim.opt.updatetime = 100 -- Faster completion and better paste performance
+
+-- Disable some features during paste to prevent freezes
+vim.g.paste_mode_enabled = false
