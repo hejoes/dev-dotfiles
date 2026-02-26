@@ -26,20 +26,6 @@ return {
       highlight = {
         enable = true, -- Enable syntax highlighting
       },
-      config = function(_, opts)
-        require("nvim-treesitter.configs").setup(opts)
-
-        -- MDX
-        vim.filetype.add({
-          extension = {
-            mdx = "mdx",
-          },
-        })
-        vim.treesitter.language.register("markdown", "mdx")
-
-        vim.treesitter.language.register("hcl", "terraform")
-        vim.treesitter.language.register("hcl", "terraform-vars")
-      end,
     },
   },
 

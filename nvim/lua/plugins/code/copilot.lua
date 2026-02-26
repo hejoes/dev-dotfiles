@@ -37,9 +37,4 @@ return {
     end,
   },
 
-  -- Add blink-cmp-copilot integration for Copilot completions in blink.cmp
-  {
-    "giuxtaposition/blink-cmp-copilot",
-    dependencies = { "zbirenbaum/copilot.lua" },
-  },
 }

@@ -139,11 +139,33 @@ The implementation uses `helm repo list`, `helm search repo --versions`, and
 
 ### Git
 
+**Lazygit & Diffview:**
+
 - `<leader>gg`: Open Lazygit (borderless)
 - `<leader>gdf`: File commit history (Diffview)
 - `<leader>gdr`: Repo commit history
 - `<leader>gdo`: Diff compare HEAD & merge conflicts
+- `<leader>gdc`: Close Diffview
 - `<leader>gda`: Advanced Git search
+
+**Git Blame & Info (GitLens-style):**
+
+- `<leader>gb`: Toggle inline blame (shows who/when/what on each line)
+- `<leader>hb`: Show detailed blame for current line (popup)
+- `<leader>hp`: Preview hunk changes (floating window)
+- `<leader>hd`: Diff file vs HEAD
+- `<leader>hD`: Diff file vs last commit
+- `<leader>go`: Open commit in remote GitHub (works in file history and inline
+  blame)
+- `<leader>gy`: Copy commit URL
+- `<leader>gc`: Copy commit SHA
+- `]c` / `[c``: Jump to next/previous change (works in any file)
+
+**In Diffview File History:**
+
+- `<leader>go`: Open commit in remote GitHub
+- `gd`: Open all files changed in commit (Mac-friendly alternative to
+  `<C-A-d>`)
 
 ### Markdown
 

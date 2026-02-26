@@ -77,17 +77,3 @@ require("lazy").setup({
 })
 
 vim.cmd("highlight Visual ctermbg=0 guibg=#6441A5")
-require("lspconfig").yamlls.setup({
-  settings = {
-    yaml = {
-      schemas = {
-        kubernetes = "k8s-*.yaml",
-        ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
-        ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
-        ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/**/*.{yml,yaml}",
-        ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
-      },
-    },
-  },
-})
-

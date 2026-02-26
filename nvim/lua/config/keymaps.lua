@@ -71,18 +71,7 @@ vim.api.nvim_set_keymap("n", "<M-Down>", ":resize -6<CR>", { noremap = true, sil
 vim.api.nvim_set_keymap("n", "<M-Left>", ":vertical resize -6<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<M-Right>", ":vertical resize +6<CR>", { noremap = true, silent = true })
 
-keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>")
-
--- Keymaps for git
-keymap.set("n", "<leader>gdf", "<cmd>DiffviewFileHistory --follow %<cr>", { desc = "File commit history" })
-keymap.set("n", "<leader>gdr", "<cmd>DiffviewFileHistory<cr>", { desc = "Repo commit history" })
-keymap.set(
-  "v",
-  "<leader>gdv",
-  "<Esc><Cmd>'<,'>DiffviewFileHistory --follow<CR>",
-  { desc = "File history from selection" }
-)
-keymap.set("n", "<leader>gdo", "<cmd>DiffviewOpen<cr>", { desc = "Diff compare HEAD & MergeConflicts" })
+-- AdvancedGitSearch (diffview keymaps are in diffview.lua for proper lazy-loading)
 keymap.set("n", "<leader>gda", "<cmd>AdvancedGitSearch <cr>", { desc = "AdvancedGitSearch" })
 
 --  Remmove other mapping for K to allow 20k movement below
