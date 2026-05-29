@@ -20,3 +20,13 @@ desc = "Paste into the hovered directory or CWD (smart-paste)"
 on = "l"
 run = "plugin --sync smart-enter"
 desc = "Enter the child directory, or open the file (smart-enter)"
+
+[[manager.prepend_keymap]]
+on = "<C-d>"
+run = "shell 'ripdrag -x \"$@\"' --confirm"
+desc = "Drag and drop selected files"
+
+[[manager.prepend_keymap]]
+on = "<C-y>"
+run = "shell --confirm 'impbcopy \"$0\"'"
+desc = "Copy image to clipboard (for pasting into apps)"

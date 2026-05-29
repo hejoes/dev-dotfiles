@@ -4,6 +4,12 @@ return {
   {
     "MagicDuck/grug-far.nvim",
     opts = {
+      -- Include hidden files but exclude .git directory
+      engines = {
+        ripgrep = {
+          extraArgs = "--hidden --glob=!.git/",
+        },
+      },
       -- Make keymaps work in both normal mode AND insert mode
       -- This allows ,r to trigger replace even while typing in the search field
       keymaps = {

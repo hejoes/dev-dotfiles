@@ -20,7 +20,7 @@ vim.opt.tabstop = 2 -- Number of spaces that a <Tab> in the file counts for
 vim.opt.expandtab = true -- Expand tab to 2 spaces
 
 -- Folding with treesitter (supports all/most file types)
-vim.opt.foldlevel = 1
+vim.opt.foldlevel = 99
 vim.opt.foldcolumn = "0"
 
 vim.opt.foldmethod = "expr"

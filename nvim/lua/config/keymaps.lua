@@ -33,6 +33,7 @@ keymap.set("n", "<leader>cG", function()
   require("telescope.builtin").live_grep({
     cwd = require("lazyvim.util").root(),
     prompt_title = "Live Grep (Project Root)",
+    additional_args = { "--hidden", "--glob", "!.git/" },
   })
 end, { desc = "Code grep in entire project" })
 
@@ -49,21 +50,27 @@ keymap.set("n", "<leader>cR", function()
   require("telescope.builtin").live_grep({
     cwd = vim.fn.getcwd(),
     prompt_title = "Live Grep (Current Working Directory)",
+    additional_args = { "--hidden", "--glob", "!.git/" },
   })
 end, { desc = "Code grep in current working directory" })
 
 -- Neotree
 keymap.set("n", "<leader>nt", ":Neotree reveal<CR>", { desc = "NeoTree reveal", silent = true, noremap = true })
 
--- Make ALL d and c commands never copy (use black hole register for everything)
+-- d and c don't copy in normal mode (black hole register)
 vim.keymap.set("n", "d", '"_d', { desc = "Delete without copying" })
 vim.keymap.set("n", "c", '"_c', { desc = "Change without copying" })
-vim.keymap.set("v", "d", '"_d', { desc = "Delete without copying" })
-vim.keymap.set("v", "c", '"_c', { desc = "Change without copying" })
 
--- Use <leader>d and <leader>c when you DO want to copy (cut)
-keymap.set({ "n", "v" }, "<leader>d", [["+d]], { desc = "Delete and copy to clipboard" })
-keymap.set({ "n", "v" }, "<leader>c", [["+c]], { desc = "Change and copy to clipboard" })
+-- Visual mode: d copies to clipboard (default), c/C do NOT copy
+vim.keymap.set("v", "c", '"_c', { desc = "Change without copying" })
+vim.keymap.set("v", "C", '"_C', { desc = "Change to EOL without copying" })
+
+-- <leader>d and <leader>c to delete/change AND copy to clipboard (normal mode)
+keymap.set("n", "<leader>d", [["+d]], { desc = "Delete and copy to clipboard" })
+keymap.set("n", "<leader>c", [["+c]], { desc = "Change and copy to clipboard" })
+
+-- Cmd+C to copy visual selection to clipboard (macOS)
+keymap.set("v", "<D-c>", '"+y', { desc = "Copy to clipboard" })
 
 -- Resize windows using Option + Arrow Keys
 vim.api.nvim_set_keymap("n", "<M-Up>", ":resize +6<CR>", { noremap = true, silent = true })
