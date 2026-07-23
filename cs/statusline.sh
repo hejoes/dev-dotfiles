@@ -19,10 +19,13 @@ if [ ! -r "$CS_SL" ]; then printf '%s\n' "${PWD##*/}"; exit 0; fi
 # Load helpers without rendering (defines _add, _seg_*, _render, palette, …).
 CS_STATUSLINE_LIB=1 source "$CS_SL"
 
-# New segment: current working directory, home-abbreviated, on a quiet surface
-# pill (the same muted background the cost pill used).
+# New segment: the session's scoped path, home-abbreviated, on a quiet surface
+# pill (the same muted background the cost pill used). Prefers CLAUDE_SESSION_DIR
+# — the workspace root cs pins for the session — so it shows where the session is
+# anchored (where you ran `cs` from) and stays stable even if Claude cd's around.
+# Falls back to the live statusline cwd, then $PWD, for non-cs Claude sessions.
 _seg_dir() {
-    local d="${SL_DIR:-$PWD}"
+    local d="${CLAUDE_SESSION_DIR:-${SL_DIR:-$PWD}}"
     [ -n "$d" ] || return 0
     case "$d" in "$HOME"*) d="~${d#$HOME}";; esac
     _add "$d" "surface"
