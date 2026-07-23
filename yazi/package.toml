@@ -1,5 +1,27 @@
-[plugin]
-deps = [{ use = "yazi-rs/plugins:full-border", rev = "ad52adf" }, { use = "yazi-rs/plugins:max-preview", rev = "ad52adf" }, { use = "pirafrank/what-size", rev = "f08f7f2" }]
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "5d5c480"
+hash = "86ebbdf04468bc4e39c74ff38b4fc66c"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:max-preview"
+rev = "5d5c480"
+hash = "4519cbe025c3c584c31611c672195a2e"
+
+[[plugin.deps]]
+use = "pirafrank/what-size"
+rev = "179ebf6"
+hash = "57056b9728006881d580ccabe8154a9c"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "5d5c480"
+hash = "9c7987da2d2a2120dac33abb64132004"
+
+[[plugin.deps]]
+use = "pakhromov/autosave"
+rev = "9177dd2"
+hash = "20d493355a106d3ed083dcde5cdf03fc"
 
 [flavor]
 deps = []

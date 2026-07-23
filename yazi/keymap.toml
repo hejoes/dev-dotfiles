@@ -1,8 +1,12 @@
 [[manager.prepend_keymap]]
+on  = "q"
+run = ["plugin --sync autosave", "quit"]
+desc = "Save session and quit"
+
+[[manager.prepend_keymap]]
 on = "<C-p>"
-run = '''
-  shell 'qlmanage -p "$@"' --confirm
-'''
+run = 'shell -- qlmanage -p %s 2>/dev/null'
+desc = "Quick Look selected files"
 
 [[manager.prepend_keymap]]
 on = "!"
@@ -30,3 +34,13 @@ desc = "Drag and drop selected files"
 on = "<C-y>"
 run = "shell --confirm 'impbcopy \"$0\"'"
 desc = "Copy image to clipboard (for pasting into apps)"
+
+[[manager.prepend_keymap]]
+on  = ["g", "d"]
+run = 'shell -- ya emit cd "$(dirname %h)"'
+desc = "Go to directory of hovered file"
+
+[[manager.prepend_keymap]]
+on  = "<C-t>"
+run = "plugin toggle-pane max-preview"
+desc = "Toggle max preview"

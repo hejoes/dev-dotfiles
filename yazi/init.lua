@@ -1,6 +1,7 @@
 require("session"):setup({
 	sync_yanked = true,
 })
+require("autosave"):setup({})
 
 function Status:name()
 	local h = cx.active.current.hovered

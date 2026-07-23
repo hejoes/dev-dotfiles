@@ -1,3 +1,7 @@
 [flavor]
 use = "catppuccin-mocha"
 
+[manager]
+tab_active   = { fg = "#1e1e2e", bg = "#89b4fa", bold = true }
+tab_inactive = { fg = "#6c7086", bg = "#313244" }
+

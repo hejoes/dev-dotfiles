@@ -1,5 +1,5 @@
 [plugin]
-prepend_previewers = [{ name = "*.md", run = "glow" }]
+prepend_previewers = [{ mime = "text/markdown", run = "glow" }]
 [preview]
 max_width = 1200
 max_height = 1000
