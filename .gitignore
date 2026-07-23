@@ -3,3 +3,18 @@ k9s/
 
 # Ignore GitHub Copilot tokens and configuration (contains OAuth tokens)
 github-copilot/
+
+# AI / agent tool state — regenerated locally, not worth versioning.
+# Unanchored so they're ignored wherever they appear (top-level and nested,
+# e.g. nvim/.omc, wezterm/.omc, yazi/.omc).
+.omc/
+.firecrawl/
+
+# Standalone AI/dev tool config dirs (top-level only).
+/crush/
+/devin/
+/flutter/
+/goose/
+/opencode/
+/vercel-plugin/
+/fish/
