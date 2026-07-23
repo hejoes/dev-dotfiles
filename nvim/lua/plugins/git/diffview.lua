@@ -13,6 +13,7 @@ return {
   keys = {
     { "<leader>gdo", "<cmd>DiffviewOpen<cr>", desc = "Diff compare HEAD & MergeConflicts" },
     { "<leader>gdf", "<cmd>DiffviewFileHistory --follow %<cr>", desc = "File commit history" },
+    { "<leader>gdF", "<cmd>DiffviewOpen -- %<cr>", desc = "Diff current file (uncommitted changes)" },
     { "<leader>gdr", "<cmd>DiffviewFileHistory<cr>", desc = "Repo commit history" },
     { "<leader>gdc", "<cmd>DiffviewClose<cr>", desc = "Close Diffview" },
     {

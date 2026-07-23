@@ -28,11 +28,34 @@ keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" })
 keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" })
 keymap.set("n", "<leader>tf", "<cmd>tabnew<CR>", { desc = "Open current tab in new tab" })
 
+-- Resolve the TOP of the project by walking up from the current file to the
+-- OUTERMOST directory containing a `.git`. This is independent of where nvim
+-- was launched and of the window-local `lcd` (autocmds.lua), so grep always
+-- spans the whole repo even when the current file is deeply nested or nvim was
+-- opened inside a subfolder like `backend/`. Falls back to the global cwd when
+-- the file isn't inside a git repo.
+local function project_root()
+  local buf = vim.api.nvim_buf_get_name(0)
+  local start = (buf ~= "" and vim.fn.filereadable(buf) == 1) and vim.fs.dirname(buf) or vim.fn.getcwd(-1, -1)
+  local candidates = { start }
+  for parent in vim.fs.parents(start) do
+    candidates[#candidates + 1] = parent
+  end
+  local outermost
+  for _, dir in ipairs(candidates) do
+    if vim.uv.fs_stat(dir .. "/.git") then
+      outermost = dir -- keep overwriting so the highest match wins
+    end
+  end
+  return outermost or vim.fn.getcwd(-1, -1)
+end
+
 -- Telescope - Fixed to ensure project-wide search
 keymap.set("n", "<leader>cG", function()
+  local root = project_root()
   require("telescope.builtin").live_grep({
-    cwd = require("lazyvim.util").root(),
-    prompt_title = "Live Grep (Project Root)",
+    cwd = root,
+    prompt_title = "Live Grep: " .. vim.fn.fnamemodify(root, ":~"),
     additional_args = { "--hidden", "--glob", "!.git/" },
   })
 end, { desc = "Code grep in entire project" })

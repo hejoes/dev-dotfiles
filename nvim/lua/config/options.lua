@@ -20,7 +20,13 @@ vim.opt.tabstop = 2 -- Number of spaces that a <Tab> in the file counts for
 vim.opt.expandtab = true -- Expand tab to 2 spaces
 
 -- Folding with treesitter (supports all/most file types)
+-- Folds are NEVER auto-closed: files always open fully expanded so you don't
+-- have to `zR` all the time. foldenable=false keeps everything open; the high
+-- foldlevel values are a safety net so nothing collapses even if a `zc`/`za`
+-- toggles foldenable back on. Folding still works manually if you ever want it.
+vim.opt.foldenable = false
 vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
 vim.opt.foldcolumn = "0"
 
 vim.opt.foldmethod = "expr"
