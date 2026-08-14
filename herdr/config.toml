@@ -1,0 +1,69 @@
+# herdr config — mirrors the muscle-memory bits of ~/.config/tmux/tmux.conf.
+# NOTE: herdr is its own multiplexer; it does NOT read tmux.conf. Bindings here
+# are herdr-native. Reload after edits: `herdr server reload-config`.
+# See every live binding with prefix+? . Revert with `herdr config reset-keys`.
+#
+# Terminology map: tmux session ≈ herdr workspace, tmux window ≈ herdr tab, pane ≈ pane.
+
+[theme]
+name = "tokyo-night"             # deep blue/purple dark theme
+# follow_terminal = true         # uncomment to auto light/dark with the host terminal
+# [theme.custom]                 # override individual tokens on top of the base theme
+# panel_bg = "#2b2a30"
+
+[ui]
+accent = "#b4befe"              # lavender, same accent your tmux uses for borders/session
+pane_borders = true
+agent_panel_sort = "priority"
+                               # surfaces whichever Claude/agent pane is waiting on you
+
+# Claude-focused sidebar rows (you run Claude Code heavily): show state, the
+# workspace/tab, the live terminal title (task), then the agent name.
+[ui.sidebar.agents.rows_by_agent]
+claude = [["state_icon", "workspace", "tab"], ["terminal_title_stripped"], ["state_text", "agent"]]
+
+# No sound on agent state changes (herdr defaults this to true).
+[ui.sound]
+enabled = false
+
+[keys]
+prefix = "ctrl+a"                 # your tmux prefix (was herdr default ctrl+b)
+
+# Splits — match your habit: h opens a pane below, v opens one to the right.
+# (herdr "horizontal" = split downward, "vertical" = split rightward.)
+split_horizontal = "prefix+h"    # your `bind h split-window -v`
+split_vertical   = "prefix+v"    # your `bind v split-window -h`
+
+close_pane = "prefix+x"          # your `bind x kill-pane`
+zoom       = "prefix+m"          # your `bind m resize-pane -Z` (frees prefix+z)
+
+# Pane focus. prefix+h now belongs to the split above, so focus-left moves to an
+# arrow. j/k/l keep working and also gain arrows. Intentionally no ctrl+j binding
+# anywhere — you freed ctrl+j for the Claude Code newline.
+focus_pane_left  = "prefix+left"
+focus_pane_down  = ["prefix+j", "prefix+down"]
+focus_pane_up    = ["prefix+k", "prefix+up"]
+focus_pane_right = ["prefix+l", "prefix+right"]
+
+# Picker on `s` (your sessionx `@sessionx-bind s`). herdr's `goto` (prefix+g) is a
+# fuzzy jump across ALL workspaces/tabs/panes — closest thing to sessionx.
+# settings moves off prefix+s (its default) so `s` is free for the picker.
+workspace_picker = "prefix+s"
+settings         = "prefix+shift+s"
+
+# Renames matching your tmux: e = rename tab (window), $ analog stays prefix+shift+w.
+# edit_scrollback moves off prefix+e to make room for the rename.
+rename_tab      = "prefix+e"
+edit_scrollback = "prefix+shift+e"
+
+# resize_mode (prefix+r, then h/j/k/l, sticky) covers your `bind -r` alt-arrow resizes.
+# Copy mode is prefix+[ with vi motions (v select, y copy) — matches your vi setup.
+
+# Git popup — you're git-heavy; prefix+alt+g opens lazygit modal, closes on quit.
+# (Swap "lazygit" for "k9s" on another chord to get a Kubernetes popup.)
+[[keys.command]]
+key = "prefix+alt+g"
+type = "popup"
+command = "lazygit"
+width = "90%"
+height = "90%"

@@ -18,3 +18,22 @@ github-copilot/
 /opencode/
 /vercel-plugin/
 /fish/
+
+# Context7 MCP OAuth tokens
+/context7/credentials.json
+
+# mcphub server definitions can embed API keys once populated
+/mcphub/
+
+# cagent first-run marker, no content worth tracking
+/cagent/
+
+# herdr: keep config.toml (custom keybindings/theme), ignore local UI/session
+# state, logs, and the plugin lockfile - all regenerate per machine.
+/herdr/session.json
+/herdr/*.log
+/herdr/.plugins.lock
+
+# tfenv: keep the version pin, ignore the downloaded binaries (regenerate with
+# `tfenv install`).
+/tfenv/versions/

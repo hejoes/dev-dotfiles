@@ -84,16 +84,78 @@ keymap.set("n", "<leader>nt", ":Neotree reveal<CR>", { desc = "NeoTree reveal", 
 vim.keymap.set("n", "d", '"_d', { desc = "Delete without copying" })
 vim.keymap.set("n", "c", '"_c', { desc = "Change without copying" })
 
--- Visual mode: d copies to clipboard (default), c/C do NOT copy
+-- Visual mode: d, c and C don't copy either (black hole register)
+vim.keymap.set("v", "d", '"_d', { desc = "Delete without copying" })
 vim.keymap.set("v", "c", '"_c', { desc = "Change without copying" })
 vim.keymap.set("v", "C", '"_C', { desc = "Change to EOL without copying" })
 
--- <leader>d and <leader>c to delete/change AND copy to clipboard (normal mode)
+-- <leader>d and <leader>c to delete/change AND copy to clipboard (normal + visual)
 keymap.set("n", "<leader>d", [["+d]], { desc = "Delete and copy to clipboard" })
 keymap.set("n", "<leader>c", [["+c]], { desc = "Change and copy to clipboard" })
+keymap.set("v", "<leader>d", [["+d]], { desc = "Delete and copy to clipboard" })
+keymap.set("v", "<leader>c", [["+c]], { desc = "Change and copy to clipboard" })
 
 -- Cmd+C to copy visual selection to clipboard (macOS)
 keymap.set("v", "<D-c>", '"+y', { desc = "Copy to clipboard" })
+
+-- word motions (w/W/b/B) shouldn't bleed across the line boundary: with no
+-- explicit count, forward motions stop at end-of-line and backward motions
+-- stop at start-of-line instead of jumping onto the neighbouring line's
+-- first/last word (the classic vw/dw/cw "eats the newline" annoyance, and
+-- its mirror image going backward with b/B).
+local function char_class(ch, big)
+  if ch == "" or ch:match("%s") then
+    return "blank"
+  elseif big then
+    return "nonblank"
+  elseif ch:match("[%w_]") then
+    return "word"
+  else
+    return "punct"
+  end
+end
+
+-- w/W: skip the rest of the current word/punct run (not counted as "next"),
+-- then any blanks; if anything's left on the line, a real next word starts
+-- here, so let the real motion run. Otherwise land on `$` instead of crossing.
+local function eol_safe_fwd(real_key, big)
+  return function()
+    if vim.v.count > 0 then
+      return real_key
+    end
+    local rest = vim.api.nvim_get_current_line():sub(vim.fn.col("."))
+    local cur_class = char_class(rest:sub(1, 1), big)
+    local i = 1
+    if cur_class ~= "blank" then
+      while i <= #rest and char_class(rest:sub(i, i), big) == cur_class do
+        i = i + 1
+      end
+    end
+    while i <= #rest and char_class(rest:sub(i, i), big) == "blank" do
+      i = i + 1
+    end
+    return (i <= #rest) and real_key or "$"
+  end
+end
+
+-- b/B: unlike forward, any non-blank earlier on the line is a valid target
+-- (either the start of the current word, or an earlier one) - no need to
+-- skip the current run. If nothing but blanks precede the cursor, there's no
+-- word-start left on this line, so land on `0` instead of crossing back.
+local function bol_safe_bwd(real_key)
+  return function()
+    if vim.v.count > 0 then
+      return real_key
+    end
+    local before = vim.api.nvim_get_current_line():sub(1, vim.fn.col(".") - 1)
+    return before:match("%S") and real_key or "0"
+  end
+end
+
+keymap.set({ "n", "x", "o" }, "w", eol_safe_fwd("w", false), { expr = true, desc = "w (stay on line)" })
+keymap.set({ "n", "x", "o" }, "W", eol_safe_fwd("W", true), { expr = true, desc = "W (stay on line)" })
+keymap.set({ "n", "x", "o" }, "b", bol_safe_bwd("b"), { expr = true, desc = "b (stay on line)" })
+keymap.set({ "n", "x", "o" }, "B", bol_safe_bwd("B"), { expr = true, desc = "B (stay on line)" })
 
 -- Resize windows using Option + Arrow Keys
 vim.api.nvim_set_keymap("n", "<M-Up>", ":resize +6<CR>", { noremap = true, silent = true })
@@ -115,7 +177,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- Borderless lazygit
 keymap.set("n", "<leader>gg", function()
-  Util.terminal({ "lazygit" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false, border = "none" })
+  Snacks.lazygit({ cwd = Util.root(), win = { border = "none" } })
 end, { desc = "Lazygit (root dir)" })
 
 -- Remap J and K to instead move between lines
