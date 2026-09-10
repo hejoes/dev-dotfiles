@@ -1,3 +1,15 @@
+-- Prefer opening the PR itself (full review/discussion) when the commit
+-- subject references one - e.g. squash merges ending "(#153)" or a merge
+-- commit "Merge pull request #154 from ...". Falls back to the bare commit
+-- page when no PR number is found.
+local function browse_commit(commit)
+  if not commit then
+    return
+  end
+  local pr = commit.subject and commit.subject:match("#(%d+)")
+  vim.cmd("!gh browse " .. (pr or commit.hash))
+end
+
 return {
   "sindrets/diffview.nvim",
   dependencies = {
@@ -40,60 +52,53 @@ return {
         -- Main diff view keymaps
         { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
         { "n", "<leader>q", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
-        -- Open commit in GitHub from diff view
+        -- Open commit (or its PR, if referenced) in GitHub from diff view
         {
           "n",
           "<leader>go",
           function()
             local view = require("diffview.lib").get_current_view()
             if view and view.panel then
-              local cur_item = view.panel:cur_item()
-              if cur_item and cur_item.commit then
-                vim.cmd("!gh browse " .. cur_item.commit.hash)
-              elseif view.panel.cur_file and view.panel.cur_file.commit then
-                vim.cmd("!gh browse " .. view.panel.cur_file.commit.hash)
-              end
+              local item = view.panel:get_item_at_cursor()
+              browse_commit((item and item.commit) or (view.panel.cur_file and view.panel.cur_file.commit))
             end
           end,
-          { desc = "Open commit in GitHub" },
+          { desc = "Open commit/PR in GitHub" },
         },
       },
       file_panel = {
         -- File panel keymaps
         { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
         { "n", "<leader>q", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
-        -- Open commit in GitHub from file panel
+        -- Open commit (or its PR, if referenced) in GitHub from file panel
         {
           "n",
           "<leader>go",
           function()
             local view = require("diffview.lib").get_current_view()
             if view and view.panel then
-              if view.panel.cur_file and view.panel.cur_file.commit then
-                vim.cmd("!gh browse " .. view.panel.cur_file.commit.hash)
-              end
+              local item = view.panel:get_item_at_cursor()
+              browse_commit((item and item.commit) or (view.panel.cur_file and view.panel.cur_file.commit))
             end
           end,
-          { desc = "Open commit in GitHub" },
+          { desc = "Open commit/PR in GitHub" },
         },
       },
       file_history_panel = {
         { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
         { "n", "<leader>q", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
-        -- Open commit in remote GitHub
+        -- Open commit (or its PR, if referenced) in remote GitHub
         {
           "n",
           "<leader>go",
           function()
             local view = require("diffview.lib").get_current_view()
             if view and view.panel then
-              local entry = view.panel:cur_item()
-              if entry and entry.commit then
-                vim.cmd("!gh browse " .. entry.commit.hash)
-              end
+              local entry = view.panel:get_log_entry_at_cursor()
+              browse_commit(entry and entry.commit)
             end
           end,
-          { desc = "Open commit in GitHub" },
+          { desc = "Open commit/PR in GitHub" },
         },
         -- Alternative to <C-A-d> for Mac (doesn't work on Mac terminals)
         {
@@ -102,7 +107,7 @@ return {
           function()
             local view = require("diffview.lib").get_current_view()
             if view and view.panel then
-              local entry = view.panel:cur_item()
+              local entry = view.panel:get_log_entry_at_cursor()
               if entry and entry.commit then
                 vim.cmd("DiffviewOpen " .. entry.commit.hash .. "^!")
               end

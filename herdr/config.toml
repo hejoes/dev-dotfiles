@@ -1,3 +1,4 @@
+onboarding = false
 # herdr config — mirrors the muscle-memory bits of ~/.config/tmux/tmux.conf.
 # NOTE: herdr is its own multiplexer; it does NOT read tmux.conf. Bindings here
 # are herdr-native. Reload after edits: `herdr server reload-config`.
