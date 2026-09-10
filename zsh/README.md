@@ -1,47 +1,75 @@
 # Zsh: autocomplete & history
 
-This covers the shell-level pieces that make the terminal experience feel
-complete: tab-completion (including custom completions like Herdr's),
-inline autosuggestions, syntax highlighting, fuzzy history search, and
-shared/persistent shell history. None of this lives in a single config file —
-it's a handful of blocks you add to `~/.zshrc`, in a specific order that
-matters (explained below).
+## 1. Installation
 
-## 1. Install the pieces
+### Setup zsh-autosuggestions
 
-```bash
-brew install zsh-autosuggestions zsh-syntax-highlighting fzf zoxide eza
+This plugin provides auto completion functionality as typing out commands
+
 ```
 
-- **zsh-autosuggestions**: greys out a suggested command as you type, based
-  on history — press `→` (right arrow) to accept it.
-- **zsh-syntax-highlighting**: colors commands green/red as you type,
-  depending on whether they're valid.
-- **fzf**: fuzzy-finder, used here for fuzzy history search and completion.
-- **zoxide**: a smarter `cd` that jumps to frecently-used directories by
-  partial name.
-- **eza**: a modern replacement for `ls` with icons and git-aware coloring.
+brew install zsh-autosuggestions
 
-## 2. Completions (`fpath` + `compinit`)
+echo "source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
 
-This repo's `zsh/completions/` directory holds custom completion scripts
-(e.g. `_herdr`). Point zsh's `fpath` at it, **then** initialize the
-completion system:
-
-```zsh
-fpath=("$HOME/.config/zsh/completions" $fpath)
-autoload -U compinit; compinit
+source ~/.zshrc
 ```
 
-**Order matters here, and it trips people up:** anything that registers a
-completion — either your own custom completions above, *or* any tool's
-generated completion script sourced later (`. <(sometool completion zsh)`,
-`eval "$(othertool init zsh)"`, etc.) — must come **after** `compinit` has
-run. `compinit` is what defines `compdef`, the function completion scripts
-register themselves with. Source one before `compinit` runs and you'll get
-startup errors like `command not found: compdef` or garbled output on every
-new terminal. If you ever add a new CLI tool's shell completion, add it
-*after* the `compinit` line above, not before.
+### Setup zsh-syntax-highlighting
+
+This will provide syntax highlighting as typing out commands.
+
+```
+brew install zsh-syntax-highlighting
+echo "source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
+source ~/.zshrc
+```
+
+### Setup fzf
+
+Fuzzy-finder, used here for fuzzy history search (`Ctrl+R`), fuzzy file find
+(`Ctrl+T`), and completion.
+
+```
+brew install fzf
+echo "source <(fzf --zsh)" >> ~/.zshrc
+source ~/.zshrc
+```
+
+### Setup zoxide
+
+A smarter `cd` that jumps to frecently-used directories by partial name
+instead of a full path.
+
+NB! Keep in mind that you first use regular  `cd` command in order to be able to use `z` since zoxide needs training first.
+
+```
+brew install zoxide
+echo 'eval "$(zoxide init zsh)"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+Optional - Map alias `cd` itself to zoxide's `z`
+
+```
+echo 'alias cd="z"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+### Setup eza
+
+A modern replacement for `ls` with icons and git-aware coloring. No shell
+init hook needed, just install it and alias `ls` to it:
+
+```
+brew install eza
+echo 'alias ls="eza -la --icons=always --color=always"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+See section 6 below for the fuller set of `ls`/`lf`/`ld`/`lh` aliases used
+in this repo's actual `.zshrc`.
+
 
 ## 3. Autosuggestions & syntax highlighting
 
@@ -50,11 +78,14 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ```
 
-**`zsh-syntax-highlighting` must be sourced last** — after this, after
-`compinit`, after everything else in your `.zshrc` that touches
-`widgets`/`ZLE`. This is a documented requirement of the plugin itself, not
-a preference: sourcing anything after it can silently break the
-highlighting.
+**Verify it worked**:
+- Type `ls` (a real command) and it should turn green as you finish typing
+  it.
+- Type `lsx` (not a real command) and it should turn red.
+- Type `git st` (assuming you've run a `git` command before) and you should
+  see the rest of a previous matching command (e.g. `atus`) appear greyed
+  out after your cursor. Press `→` to accept it, or keep typing to ignore
+  it.
 
 ## 4. History
 
@@ -72,6 +103,12 @@ setopt hist_verify          # let you edit a recalled history command before run
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 ```
+
+**Verify it worked**: run a distinctive command like `echo hello-world-test`.
+Then type `echo` and press the `↑` (up arrow) key. It should jump straight
+to `echo hello-world-test`, not just the most recent command in general.
+Open a second terminal tab and run a command in it, it should show up when
+you press `↑` in the first tab too (that's `share_history`).
 
 ## 5. Fuzzy history search (fzf)
 
@@ -95,6 +132,15 @@ fh() {
 `fzf --zsh` also wires up `Ctrl+R` (fuzzy history search) and `Ctrl+T`
 (fuzzy file finder) automatically.
 
+**Verify it worked**:
+- Press `Ctrl+R`, start typing part of any command you've run before. A
+  fuzzy-matched, scrollable list should pop up. Press `Enter` to run the
+  selected one, or `Esc` to cancel.
+- Press `Ctrl+T` in any directory. A fuzzy file picker should pop up, select
+  a file and press `Enter`, its path gets inserted at your cursor.
+- Type `fh` and press `Enter`. Same idea as `Ctrl+R`, but as a standalone
+  command instead of a keybinding.
+
 ## 6. Optional: zoxide (smarter `cd`) and eza (nicer `ls`)
 
 ```zsh
@@ -112,7 +158,16 @@ alias lh="eza -dl .* --group-directories-first --color=always --icons=always"
 
 `aliasing cd="z"` means plain `cd /some/path` still works exactly as
 before, but `cd partial-name` (no path) will jump to the best frecency match
-zoxide has learned — the more you `cd` somewhere, the higher it ranks.
+zoxide has learned, the more you `cd` somewhere, the higher it ranks.
+
+**Verify it worked**:
+- Run `ls` in any directory with a few files. You should see file-type
+  icons next to each name, and directories sorted with the most recently
+  modified first.
+- `cd` into a couple of different real directories first (e.g.
+  `cd ~/.config` then `cd ~/Downloads`), so zoxide has something to learn.
+  Then from anywhere, run `cd config` (no slash, no full path). It should
+  jump you straight to `~/.config`.
 
 ## Putting it all together: the order that works
 
@@ -127,7 +182,15 @@ zoxide has learned — the more you `cd` somewhere, the higher it ranks.
 8. zsh-syntax-highlighting                  (must always be LAST)
 ```
 
-You don't have to follow this exact layout inside `.zshrc` — plenty of
-unrelated `export`/alias lines can sit anywhere — but relative to each
+You don't have to follow this exact layout inside `.zshrc`, plenty of
+unrelated `export`/alias lines can sit anywhere, but relative to each
 other, these building blocks need to stay in this order or you'll see
 exactly the kind of startup errors this README exists to help you avoid.
+
+## Learn more
+
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+- [fzf](https://github.com/junegunn/fzf) / [fzf docs site](https://junegunn.github.io/fzf/)
+- [zoxide](https://github.com/ajeetdsouza/zoxide) / [zoxide.org](https://zoxide.org/)
+- [eza](https://github.com/eza-community/eza): community-maintained continuation of the now-unmaintained `exa`
